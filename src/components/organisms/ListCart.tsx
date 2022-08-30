@@ -1,4 +1,4 @@
-import {StyleSheet, FlatList, View} from 'react-native';
+import {StyleSheet, FlatList, View, Alert} from 'react-native';
 import React from 'react';
 import Label from '../atoms/Label';
 import RenderItem from '../molecules/RenderItem';
@@ -13,7 +13,11 @@ const ListCart = (props: Props) => {
   const {burgers, cart, addToCart, removeFromCart} = useCart();
 
   const addRandomBurger = () => {
-    addToCart(burgers[Math.floor(Math.random() * burgers.length)]);
+    if (burgers.length > 0) {
+      addToCart(burgers[Math.floor(Math.random() * burgers.length)]);
+    } else {
+      Alert.alert('Attention', 'Please wait, burgers data not fetched yet.');
+    }
   };
 
   const renderItem = ({item}: any) => (
