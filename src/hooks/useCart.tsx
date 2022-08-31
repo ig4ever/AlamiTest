@@ -3,6 +3,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch, RootState} from '../store';
 
 const useCart = () => {
+  const loadingGetBurgers = useSelector(
+    (rootState: RootState) => rootState.loading.effects.burgers.getBurgers,
+  );
   const burgers = useSelector((rootState: RootState) => rootState.burgers);
   const cart = useSelector((rootState: RootState) => rootState.cart);
 
@@ -27,6 +30,7 @@ const useCart = () => {
   return {
     cart,
     burgers,
+    loadingGetBurgers,
     addToCart,
     removeFromCart,
   };

@@ -1,20 +1,18 @@
 import {init, RematchDispatch, RematchRootState} from '@rematch/core';
 import {models, RootModel} from './models';
 import immerPlugin from '@rematch/immer';
+import loadingPlugin, {ExtraModelsFromLoading} from '@rematch/loading';
 
-const persistConfig = {
-  key: 'root',
-  whitelist: ['authToken', 'showIntroduction', 'messageNotSent', 'role'],
-};
+type FullModel = ExtraModelsFromLoading<RootModel>;
 
-export const store = init<RootModel>({
+export const store = init<RootModel, FullModel>({
   models,
   redux: {
     rootReducers: {LOGOUT: () => undefined},
   },
-  plugins: [immerPlugin()],
+  plugins: [loadingPlugin(), immerPlugin()],
 });
 
 export type Store = typeof store;
 export type Dispatch = RematchDispatch<RootModel>;
-export type RootState = RematchRootState<RootModel>;
+export type RootState = RematchRootState<RootModel, FullModel>;

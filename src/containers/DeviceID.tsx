@@ -62,7 +62,7 @@ const DeviceID = (props: Props) => {
           />
         </Button>
         {deviceID !== '' && (
-          <Label text={`Result: ${deviceID}`} size={16} weight={'500'} />
+          <Label text={`Your Device ID: ${deviceID}`} size={16} weight={'500'} />
         )}
       </View>
     </View>

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Label from '../atoms/Label';
 import {Colors} from '../../styles/Colors';
@@ -12,15 +12,20 @@ type Props = {
 
 const RenderItem = (props: Props) => {
   const {data, onPress} = props;
+  const countRender = React.useRef(0);
+
+  countRender.current++;
 
   return (
     <View style={styles.container}>
-      <Label
-        style={{flex: 1}}
-        text={`${data?.name}`}
-        size={20}
-        color={Colors.WHITE}
-      />
+      <View style={{flex: 1}}>
+        <Label text={`${data?.name}`} size={20} color={Colors.WHITE} />
+        <Label
+          text={`Render count: ${countRender.current}`}
+          size={10}
+          color={Colors.WHITE}
+        />
+      </View>
       <Button
         style={{backgroundColor: Colors.RED, marginLeft: 16}}
         onPress={onPress}>
@@ -30,7 +35,9 @@ const RenderItem = (props: Props) => {
   );
 };
 
-export default React.memo(RenderItem);
+export default React.memo(RenderItem, (prevProps: any, nextProps: any) => {
+  return nextProps?.id === prevProps?.id;
+});
 
 const styles = StyleSheet.create({
   container: {

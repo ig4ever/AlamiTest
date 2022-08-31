@@ -1,4 +1,11 @@
-import {StyleSheet, FlatList, View, Alert} from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Alert,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import Label from '../atoms/Label';
 import RenderItem from '../molecules/RenderItem';
@@ -10,7 +17,8 @@ import {Colors} from '../../styles/Colors';
 type Props = {};
 
 const ListCart = (props: Props) => {
-  const {burgers, cart, addToCart, removeFromCart} = useCart();
+  const {burgers, cart, loadingGetBurgers, addToCart, removeFromCart} =
+    useCart();
 
   const addRandomBurger = () => {
     if (burgers.length > 0) {
@@ -32,27 +40,39 @@ const ListCart = (props: Props) => {
     </View>
   );
 
-  return (
-    <View>
-      <View style={{alignItems: 'center', marginBottom: 16}}>
-        <Button
-          style={{
-            marginBottom: 16,
-            width: '50%',
-            backgroundColor: Colors.BLUE,
-            flexDirection: 'row',
-          }}
-          onPress={addRandomBurger}>
-          <Label
-            style={{marginRight: 5}}
-            text={'Add Random Burger'}
-            size={16}
-            weight={'500'}
-            color={Colors.WHITE}
-          />
-          <Ionicons name={'cart'} size={20} color={Colors.WHITE} />
-        </Button>
-      </View>
+  const ListHeaderComponent = () => (
+    <View style={{alignItems: 'center', marginBottom: 16}}>
+      <Button
+        style={{
+          marginBottom: 16,
+          width: '50%',
+          backgroundColor: Colors.BLUE,
+          flexDirection: 'row',
+        }}
+        onPress={addRandomBurger}>
+        <Label
+          style={{marginRight: 5}}
+          text={'Add Random Burger'}
+          size={16}
+          weight={'500'}
+          color={Colors.WHITE}
+        />
+        <Ionicons name={'cart'} size={20} color={Colors.WHITE} />
+      </Button>
+    </View>
+  );
+
+  return loadingGetBurgers ? (
+    <View style={{flex: 1, alignItems: 'center'}}>
+      <ActivityIndicator size={28} color={Colors.BLUE} />
+      <Label
+        style={{marginTop: 16}}
+        text={'Wait for fetching data burgers...'}
+      />
+    </View>
+  ) : (
+    <View style={{flex: 1}}>
+      <ListHeaderComponent />
       <FlatList
         data={cart}
         renderItem={renderItem}
