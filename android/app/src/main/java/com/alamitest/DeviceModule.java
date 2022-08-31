@@ -1,18 +1,14 @@
 package com.alamitest;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.os.Build;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 public class DeviceModule extends ReactContextBaseJavaModule {
     DeviceModule(ReactApplicationContext context) {
@@ -25,16 +21,16 @@ public class DeviceModule extends ReactContextBaseJavaModule {
         return "DeviceModule";
     }
 
-    @SuppressLint("MissingPermission")
     @ReactMethod
-    public void getDeviceID(final Promise promise) {
+    public void getDeviceID(final Promise promise) throws UnsupportedEncodingException {
         String deviceID = "";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            deviceID = Settings.Secure.getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        } else {
-            TelephonyManager tm = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-            deviceID = tm.getDeviceId();
-        }
+
+        String androidId = android.provider.Settings.Secure.getString(getReactApplicationContext().getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+
+        UUID androidId_UUID = UUID
+                .nameUUIDFromBytes(androidId.getBytes("utf8"));
+
+        deviceID = androidId_UUID.toString();
 
         if (!deviceID.isEmpty()) {
             promise.resolve(deviceID);
