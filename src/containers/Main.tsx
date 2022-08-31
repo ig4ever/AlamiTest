@@ -35,19 +35,34 @@ const Main = (props: Props) => {
         />
       </View>
       <Button
-        style={{marginBottom: 16, width: '50%'}}
+        style={{marginBottom: 16}}
         onPress={() => navigation.navigate('DeviceIDScreen')}>
-        <Label text={'Task 1: Get Device ID'} size={16} weight={'500'} />
+        <Label
+          text={'Task 1: Get Device ID'}
+          adjustsFontSizeToFit={true}
+          size={16}
+          weight={'500'}
+        />
       </Button>
       <Button
-        style={{marginBottom: 16, width: '50%'}}
+        style={{marginBottom: 16}}
         onPress={() => navigation.navigate('CartScreen')}>
-        <Label text={'Task 2: Cart'} size={16} weight={'500'} />
+        <Label
+          text={'Task 2: Cart'}
+          adjustsFontSizeToFit={true}
+          size={16}
+          weight={'500'}
+        />
       </Button>
       <Button
-        style={{marginBottom: 16, width: '50%'}}
+        style={{marginBottom: 16}}
         onPress={() => navigation.navigate('ProgressBarScreen')}>
-        <Label text={'Task 3: Progress Bar'} size={16} weight={'500'} />
+        <Label
+          text={'Task 3: Progress Bar'}
+          adjustsFontSizeToFit={true}
+          size={16}
+          weight={'500'}
+        />
       </Button>
     </View>
   );

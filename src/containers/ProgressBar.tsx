@@ -80,7 +80,12 @@ const ProgressBar = (props: Props) => {
         <Button
           style={{
             marginBottom: 16,
-            backgroundColor: isPause ? Colors.RED : Colors.BLUE,
+            backgroundColor:
+              loadingProgressRef.current >= 100
+                ? Colors.GREEN
+                : isPause
+                ? Colors.RED
+                : Colors.BLUE,
           }}
           onPressIn={() => setPause(true)}
           onPressOut={() => setPause(false)}>
@@ -95,10 +100,11 @@ const ProgressBar = (props: Props) => {
         <Label text={`${loadingProgress} %`} size={16} weight={'500'} />
         {loadingProgress >= 100 && (
           <Button
-            style={{marginTop: 16, width: '50%', backgroundColor: Colors.BLUE}}
+            style={{marginTop: 16, backgroundColor: Colors.BLUE}}
             onPress={resetCounter}>
             <Label
               text={'Reset'}
+              adjustsFontSizeToFit={true}
               size={16}
               weight={'500'}
               color={Colors.WHITE}

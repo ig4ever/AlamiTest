@@ -5,6 +5,7 @@ import {Colors} from '../../styles/Colors';
 type Props = {
   style?: StyleProp<TextStyle>;
   text: string;
+  adjustsFontSizeToFit?: boolean | undefined;
   color?: string;
   size?: number;
   numberOfLines?: number | undefined;
@@ -24,7 +25,15 @@ type Props = {
 };
 
 const Label = (props: Props) => {
-  const {style, text, color, size, numberOfLines, weight} = props;
+  const {
+    style,
+    text,
+    adjustsFontSizeToFit,
+    color,
+    size,
+    numberOfLines,
+    weight,
+  } = props;
 
   const styles = StyleSheet.create({
     text: {
@@ -35,7 +44,10 @@ const Label = (props: Props) => {
   });
 
   return (
-    <Text numberOfLines={numberOfLines} style={[styles.text, style]}>
+    <Text
+      adjustsFontSizeToFit={adjustsFontSizeToFit}
+      numberOfLines={numberOfLines}
+      style={[styles.text, style]}>
       {text}
     </Text>
   );

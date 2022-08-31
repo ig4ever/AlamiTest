@@ -45,7 +45,6 @@ const ListCart = (props: Props) => {
       <Button
         style={{
           marginBottom: 16,
-          width: '50%',
           backgroundColor: Colors.BLUE,
           flexDirection: 'row',
         }}

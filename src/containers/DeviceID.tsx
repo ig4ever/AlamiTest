@@ -52,17 +52,22 @@ const DeviceID = (props: Props) => {
       </View>
       <View style={{alignItems: 'center'}}>
         <Button
-          style={{marginBottom: 16, width: '50%', backgroundColor: Colors.BLUE}}
+          style={{marginBottom: 16, backgroundColor: Colors.BLUE}}
           onPress={getDevice}>
           <Label
             text={'Get Device ID'}
+            adjustsFontSizeToFit={true}
             size={16}
             weight={'500'}
             color={Colors.WHITE}
           />
         </Button>
         {deviceID !== '' && (
-          <Label text={`Your Device ID: ${deviceID}`} size={16} weight={'500'} />
+          <Label
+            text={`Your Device ID: ${deviceID}`}
+            size={16}
+            weight={'500'}
+          />
         )}
       </View>
     </View>
